@@ -27,7 +27,7 @@ public class UserApplicationService {
     }
 
     public void initPassword(InitPasswordCommand initPasswordCommand) {
-        User user = registerService.initPassword(initPasswordCommand.getEmail(), initPasswordCommand.getPassword());
+        User user = registerService.initPassword(initPasswordCommand.getId(), initPasswordCommand.getPassword());
         userRepo.saveUser(user);
     }
 }

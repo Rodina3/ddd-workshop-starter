@@ -56,12 +56,11 @@ public class UserApplicationServiceTest {
                 && argument.getPolicyNumber().equals("policyNumber")));
     }
 
-
     @Test
     public void shouldInitPassword() throws Exception {
         // given
         InitPasswordCommand initPasswordCommand = InitPasswordCommand.builder()
-                .email("email")
+                .id(1L)
                 .password("password")
                 .build();
 
@@ -69,13 +68,13 @@ public class UserApplicationServiceTest {
                 .email("email")
                 .password("password")
                 .build();
-        given(registerService.initPassword(initPasswordCommand.getEmail(), initPasswordCommand.getPassword())).willReturn(user);
+        given(registerService.initPassword(initPasswordCommand.getId(), initPasswordCommand.getPassword())).willReturn(user);
 
         // when
         userApplicationService.initPassword(initPasswordCommand);
 
         // then
-        verify(registerService).initPassword("email", "password");
+        verify(registerService).initPassword(1L, "password");
         verify(userRepo).saveUser(argThat(argument -> argument.getEmail().equals("email")
                 && argument.getPassword().equals("password")));
     }

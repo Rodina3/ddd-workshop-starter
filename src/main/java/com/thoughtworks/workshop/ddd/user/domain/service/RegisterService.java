@@ -18,7 +18,6 @@ public class RegisterService {
     @Autowired
     public RegisterService(UserRepo userRepo) {
         this.userRepo = userRepo;
-
     }
 
     public User createUser(String email, String policyNumber) {
@@ -30,8 +29,8 @@ public class RegisterService {
                 .build();
     }
 
-    public User initPassword(String email, String password) {
-        Optional<User> userOpt = Optional.ofNullable(userRepo.findUserByEmail(email));
+    public User initPassword(Long id, String password) {
+        Optional<User> userOpt = Optional.ofNullable(userRepo.findUserById(id));
         userOpt.orElseThrow(() -> new ResourceNotFoundException("Email Not Found."));
         userOpt.get().initPassword(password);
         return userOpt.get();

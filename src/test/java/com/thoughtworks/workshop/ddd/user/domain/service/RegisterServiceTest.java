@@ -46,18 +46,18 @@ public class RegisterServiceTest {
 
     @Test
     public void shouldInitPasswordSucceed() throws Exception {
-        given(userRepo.findUserByEmail("email")).willReturn(User.builder().email("email").build());
+        given(userRepo.findUserById(1L)).willReturn(User.builder().id(1L).build());
 
-        User user = registerService.initPassword("email", "password");
+        User user = registerService.initPassword(1L, "password");
 
-        assertThat(user.getEmail(), is("email"));
+        assertThat(user.getId(), is(1L));
         assertThat(user.getPassword(), is("password"));
     }
 
     @Test(expected = ResourceNotFoundException.class)
     public void shouldInitPasswordFail() throws Exception {
-        given(userRepo.findUserByEmail("email")).willReturn(null);
+        given(userRepo.findUserById(1L)).willReturn(null);
 
-        registerService.initPassword("email", "password");
+        registerService.initPassword(1L, "password");
     }
 }
