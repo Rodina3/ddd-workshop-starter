@@ -6,7 +6,9 @@ def excludeFiles = [
         '**/exception/**',
         '**/utils/**',
         '**/controller/**',
-        '**/repository/**'
+        '**/repo/**',
+        '**/model/**',
+        '**/dto/**'
 ]
 
 jacocoTestReport {
@@ -37,13 +39,13 @@ jacocoTestCoverageVerification {
             limit {
                 counter = 'LINE'
                 value = 'COVEREDRATIO'
-                minimum = 0.1
+                minimum = 0.80
             }
 
             limit {
                 counter = 'BRANCH'
                 value = 'COVEREDRATIO'
-                minimum = 0.1
+                minimum = 0.80
             }
         }
     }

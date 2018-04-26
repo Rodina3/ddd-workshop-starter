@@ -4,10 +4,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class HelloWorldControllerIntegrationTest extends BaseIntegrationTest {
     @Test
+    @Ignore
     public void shouldSayHelloWorldWhenRequestHelloWorldEndpoint() throws Exception {
         performRequest(get("/world"))
                 .andExpect(status().isOk())
