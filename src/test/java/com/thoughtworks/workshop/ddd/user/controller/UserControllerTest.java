@@ -2,6 +2,7 @@ package com.thoughtworks.workshop.ddd.user.controller;
 
 
 import com.thoughtworks.workshop.ddd.user.UserApplicationService;
+import com.thoughtworks.workshop.ddd.user.dto.InitPasswordCommand;
 import com.thoughtworks.workshop.ddd.user.dto.RegisterCommand;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,8 +37,13 @@ public class UserControllerTest {
 
     @Test
     public void shouldInitPassword() throws Exception {
-        userController.initPassword(1L, "password");
-        verify(userApplicationService).initPassword(argThat(argument -> argument.getId().equals(1L)
-                && argument.getPassword().equals("password")));
+        InitPasswordCommand initPasswordCommand = InitPasswordCommand.builder()
+                .id("067e6162-3b6f-4ae2-a171-2470b63dff00")
+                .password("password")
+                .build();
+        userController.initPassword(initPasswordCommand);
+        verify(userApplicationService).initPassword(argThat(argument ->
+                argument.getId().equals("067e6162-3b6f-4ae2-a171-2470b63dff00")
+                        && argument.getPassword().equals("password")));
     }
 }

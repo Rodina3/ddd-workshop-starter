@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class RegisterService {
@@ -23,15 +24,18 @@ public class RegisterService {
     public User createUser(String email, String policyNumber) {
         checkEmail(email);
         checkPolicy(policyNumber);
+        String id = UUID.randomUUID().toString();
+        sendEmail(id);
         return User.builder()
+                .id(id)
                 .email(email)
                 .policyNumber(policyNumber)
                 .build();
     }
 
-    public User initPassword(Long id, String password) {
+    public User initPassword(String id, String password) {
         Optional<User> userOpt = Optional.ofNullable(userRepo.findUserById(id));
-        userOpt.orElseThrow(() -> new ResourceNotFoundException("Email Not Found."));
+        userOpt.orElseThrow(() -> new ResourceNotFoundException("User Not Found."));
         userOpt.get().initPassword(password);
         return userOpt.get();
     }
@@ -45,5 +49,9 @@ public class RegisterService {
 
     private void checkPolicy(String policyNumber) {
 
+    }
+
+    private void sendEmail(String id) {
+        System.out.println(String.format("Sending Email to user: %s\n", id));
     }
 }

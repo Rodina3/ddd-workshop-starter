@@ -21,7 +21,7 @@ public class UserApplicationService {
         this.userRepo = userRepo;
     }
 
-    public Long register(RegisterCommand registerCommand) {
+    public String register(RegisterCommand registerCommand) {
         User user = registerService.createUser(registerCommand.getEmail(), registerCommand.getPolicyNumber());
         return userRepo.saveUser(user);
     }

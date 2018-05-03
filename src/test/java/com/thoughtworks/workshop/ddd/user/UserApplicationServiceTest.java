@@ -44,13 +44,13 @@ public class UserApplicationServiceTest {
                 .policyNumber("policyNumber")
                 .build();
         given(registerService.createUser(registerCommand.getEmail(), registerCommand.getPolicyNumber())).willReturn(user);
-        given(userRepo.saveUser(user)).willReturn(1L);
+        given(userRepo.saveUser(user)).willReturn("067e6162-3b6f-4ae2-a171-2470b63dff00");
 
         // when
-        Long id = userApplicationService.register(registerCommand);
+        String id = userApplicationService.register(registerCommand);
 
         //then
-        assertThat(id, is(1L));
+        assertThat(id, is("067e6162-3b6f-4ae2-a171-2470b63dff00"));
         verify(registerService).createUser("email", "policyNumber");
         verify(userRepo).saveUser(argThat(argument -> argument.getEmail().equals("email")
                 && argument.getPolicyNumber().equals("policyNumber")));
@@ -60,7 +60,7 @@ public class UserApplicationServiceTest {
     public void shouldInitPassword() throws Exception {
         // given
         InitPasswordCommand initPasswordCommand = InitPasswordCommand.builder()
-                .id(1L)
+                .id("067e6162-3b6f-4ae2-a171-2470b63dff00")
                 .password("password")
                 .build();
 
@@ -74,7 +74,7 @@ public class UserApplicationServiceTest {
         userApplicationService.initPassword(initPasswordCommand);
 
         // then
-        verify(registerService).initPassword(1L, "password");
+        verify(registerService).initPassword("067e6162-3b6f-4ae2-a171-2470b63dff00", "password");
         verify(userRepo).saveUser(argThat(argument -> argument.getEmail().equals("email")
                 && argument.getPassword().equals("password")));
     }

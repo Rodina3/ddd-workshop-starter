@@ -8,19 +8,17 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/users")
-@Api(value = "User REST API", description = "User related API")
+@Api(tags = "User", description = "User Related API")
 public class UserController {
     private UserApplicationService userApplicationService;
 
@@ -30,20 +28,16 @@ public class UserController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @ApiOperation(value = "POST", notes = "Register")
+    @ApiOperation(value = "User Register", notes = "Register")
     @PostMapping()
-    public void registerUser(@Valid @RequestBody RegisterCommand registerCommand) {
-        userApplicationService.register(registerCommand);
+    public String registerUser(@Valid @RequestBody RegisterCommand registerCommand) {
+        return userApplicationService.register(registerCommand);
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @ApiOperation(value = "POST", notes = "Init Password")
-    @PostMapping("/{id}")
-    public void initPassword(@NotNull @RequestParam Long id, @NotBlank @RequestBody String password) {
-        InitPasswordCommand initPasswordCommand = InitPasswordCommand.builder()
-                .id(id)
-                .password(password)
-                .build();
+    @ApiOperation(value = "Initial Password", notes = "Initial Password")
+    @PutMapping()
+    public void initPassword(@Valid @RequestBody InitPasswordCommand initPasswordCommand) {
         userApplicationService.initPassword(initPasswordCommand);
     }
 }

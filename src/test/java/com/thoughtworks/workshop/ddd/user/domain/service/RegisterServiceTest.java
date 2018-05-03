@@ -46,9 +46,10 @@ public class RegisterServiceTest {
 
     @Test
     public void shouldInitPasswordSucceed() throws Exception {
-        given(userRepo.findUserById(1L)).willReturn(User.builder().id(1L).build());
+        given(userRepo.findUserById("067e6162-3b6f-4ae2-a171-2470b63dff00")).
+                willReturn(User.builder().id("067e6162-3b6f-4ae2-a171-2470b63dff00").build());
 
-        User user = registerService.initPassword(1L, "password");
+        User user = registerService.initPassword("067e6162-3b6f-4ae2-a171-2470b63dff00", "password");
 
         assertThat(user.getId(), is(1L));
         assertThat(user.getPassword(), is("password"));
@@ -56,8 +57,8 @@ public class RegisterServiceTest {
 
     @Test(expected = ResourceNotFoundException.class)
     public void shouldInitPasswordFail() throws Exception {
-        given(userRepo.findUserById(1L)).willReturn(null);
+        given(userRepo.findUserById("067e6162-3b6f-4ae2-a171-2470b63dff00")).willReturn(null);
 
-        registerService.initPassword(1L, "password");
+        registerService.initPassword("067e6162-3b6f-4ae2-a171-2470b63dff00", "password");
     }
 }

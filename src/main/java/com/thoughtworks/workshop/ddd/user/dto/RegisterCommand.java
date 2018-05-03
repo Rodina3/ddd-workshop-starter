@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.experimental.Tolerate;
 
 import javax.validation.constraints.NotBlank;
 
@@ -16,6 +17,10 @@ public class RegisterCommand {
     private String email;
 
     @NotBlank(message = "Policy Number cannot be empty")
-    @ApiModelProperty(value = "Policy Number", example = "123")
+    @ApiModelProperty(value = "Policy Number", example = "P123")
     private String policyNumber;
+
+    @Tolerate
+    public RegisterCommand() {
+    }
 }
