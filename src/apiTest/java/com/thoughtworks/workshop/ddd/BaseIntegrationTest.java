@@ -1,14 +1,5 @@
 package com.thoughtworks.workshop.ddd;
 
-import static com.thoughtworks.workshop.ddd.utils.constant.Constants.CONTENT_TYPE;
-import static java.lang.ClassLoader.getSystemClassLoader;
-import static java.lang.String.format;
-import static java.nio.charset.Charset.defaultCharset;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
-
-import java.io.IOException;
-import java.io.InputStream;
-
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -20,6 +11,15 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+import static com.thoughtworks.workshop.ddd.utils.constant.Constants.CONTENT_TYPE;
+import static java.lang.ClassLoader.getSystemClassLoader;
+import static java.lang.String.format;
+import static java.nio.charset.Charset.defaultCharset;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
